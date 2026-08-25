@@ -3,60 +3,29 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="theme-color" content="#193430" />
+  <meta name="theme-color" content="#17212b" />
   <title>Benzin95 Ledger</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <div class="paper-grain" aria-hidden="true"></div>
   <header class="topbar">
-    <a class="brand" href="#capture" aria-label="Fuel Ledger home"><span class="brand-mark">B95</span><span>Benzin95 Ledger</span></a>
-    <nav aria-label="Main navigation">
-      <a href="#capture" data-route="capture">Capture</a>
-      <a href="#records" data-route="records">Months</a>
-      <a href="#calendar" data-route="calendar">Calendar</a>
-    </nav>
-    <button class="export-button" id="exportButton" type="button">Export archive</button>
+    <a class="brand" href="#capture" aria-label="Benzin95 Ledger home"><span>B95</span> Benzin95 Ledger</a>
+    <nav aria-label="Main navigation"><a href="#capture" data-route="capture">Add</a><a href="#records" data-route="records">Checks</a><a href="#calendar" data-route="calendar">Months</a></nav>
+    <button class="primary-button" id="exportButton" type="button">Export PDF</button>
   </header>
-
   <main>
-    <section class="route" id="capture" data-page="capture">
-      <div class="intro"><p class="eyebrow">PRIVATE FUEL CHECK ARCHIVE</p><h1>Save the proof.<br>See the pattern.</h1><p>Photograph a fuel check, confirm its date and total, and it is filed in that month automatically.</p></div>
-      <div class="capture-layout">
-        <section class="upload-card" aria-labelledby="upload-title">
-          <div class="card-heading"><div><p class="eyebrow">NEW CHECK</p><h2 id="upload-title">Add a receipt</h2></div><span class="privacy-dot">Stored on this device</span></div>
-          <div class="source-row">
-            <label class="source-button primary"><input id="cameraInput" type="file" accept="image/*" capture="environment" />Open camera</label>
-            <label class="source-button"><input id="galleryInput" type="file" accept="image/*" />Choose from gallery</label>
-          </div>
-          <form id="checkForm" hidden>
-            <div class="image-preview-wrap"><img id="imagePreview" alt="Selected fuel check preview" /><button id="clearImage" type="button" aria-label="Remove selected image">×</button></div>
-            <div class="field-grid">
-              <label>Purchase date<input id="checkDate" type="date" required /></label>
-              <label>Total fuel spend<input id="checkAmount" type="number" min="0" step="0.01" placeholder="0.00" required /></label>
-            </div>
-            <label>Note <span class="optional">optional</span><input id="checkNote" type="text" maxlength="120" placeholder="Station or a quick reminder" /></label>
-            <div class="form-footer"><p id="monthHint">This will be filed in —</p><button class="save-button" type="submit">Confirm & save</button></div>
-          </form>
-          <p class="quiet" id="emptyCaptureHint">Tip: your phone opens the camera directly; desktop lets you choose a saved photo.</p>
-        </section>
-        <aside class="summary-card" aria-labelledby="summary-title"><p class="eyebrow">QUICK LOOK</p><h2 id="summary-title">This archive</h2><div class="big-total" id="grandTotal">₪0.00</div><p class="muted">across <span id="checkCount">0</span> checks</p><div class="latest-month" id="latestMonth">No months calculated yet.</div><a href="#records" class="text-link">Review monthly archive <span>→</span></a></aside>
-      </div>
+    <section id="capture" class="route" data-page="capture">
+      <div class="page-title"><div><h1>Add fuel check</h1><p>Photo, date, total.</p></div><div class="summary-inline"><b id="grandTotal">₪0.00</b><span><span id="checkCount">0</span> checks total</span></div></div>
+      <section class="panel upload-panel"><div class="source-row"><label class="primary-button"><input id="cameraInput" type="file" accept="image/*" capture="environment" />Camera</label><label class="secondary-button"><input id="galleryInput" type="file" accept="image/*" />Gallery</label></div>
+        <form id="checkForm" hidden><div class="image-preview-wrap"><img id="imagePreview" alt="Selected fuel check" /><button id="clearImage" type="button" aria-label="Remove selected image">×</button></div><div class="form-grid"><label>Date<input id="checkDate" type="date" required /></label><label>Total (₪)<input id="checkAmount" type="number" min="0" step="0.01" placeholder="0.00" required /></label><label class="note-field">Note <span>optional</span><input id="checkNote" type="text" maxlength="120" placeholder="Station" /></label></div><div class="form-footer"><small id="monthHint"></small><button class="primary-button" type="submit">Save check</button></div></form>
+        <p class="empty-hint" id="emptyCaptureHint">Choose camera or gallery to add a check.</p>
+      </section>
     </section>
-
-    <section class="route" id="records" data-page="records" hidden>
-      <div class="page-heading"><div><p class="eyebrow">MONTHLY ARCHIVE</p><h1>All checks, ordered by when they happened.</h1></div><button class="export-button" id="exportButtonSecondary" type="button">Export archive</button></div>
-      <div id="monthList" class="month-list"></div>
-    </section>
-
-    <section class="route" id="calendar" data-page="calendar" hidden>
-      <div class="page-heading"><div><p class="eyebrow">SPENDING CALENDAR</p><h1>A quiet overview of fuel by month.</h1></div></div>
-      <div class="calendar-card"><div class="calendar-legend"><span>Calculated from saved checks</span><span>•</span><span id="calendarYear"></span></div><div id="calendarGrid" class="calendar-grid"></div></div>
-    </section>
+    <section id="records" class="route" data-page="records" hidden><div class="page-title"><div><h1>Monthly checks</h1><p>Calculate a month when it is complete.</p></div><button class="primary-button" id="exportButtonSecondary" type="button">Export PDF</button></div><div id="monthList" class="month-list"></div></section>
+    <section id="calendar" class="route" data-page="calendar" hidden><div class="page-title"><div><h1>Monthly spending</h1><p>Calculated months only.</p></div></div><div class="panel calendar-panel"><div id="calendarGrid" class="calendar-grid"></div></div></section>
   </main>
-
-  <dialog id="exportDialog"><form method="dialog"><button class="dialog-close" value="cancel" aria-label="Close">×</button><p class="eyebrow">EXPORT</p><h2>Take your archive with you.</h2><p class="muted">Creates a standard ZIP with the original check images and a CSV summary.</p><label class="radio-row"><input type="radio" name="export-mode" value="checks" checked /><span><b>Checks only</b><small>Original uploaded images</small></span></label><label class="radio-row"><input type="radio" name="export-mode" value="full" /><span><b>Checks + totals</b><small>Images, monthly totals and detailed CSV</small></span></label><button id="downloadArchive" class="save-button" value="default" type="button">Download ZIP</button></form></dialog>
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script type="module" src="app.js"></script>
 </body>
 </html>

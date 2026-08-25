@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { monthKeyFor, totalForMonth, buildSummary } from './app-core.js';
+import { monthKeyFor, totalForMonth, buildSummary, reportFileName } from './app-core.js';
 
 test('monthKeyFor uses the confirmed purchase date, not today', () => {
   assert.equal(monthKeyFor('2026-08-01'), '2026-08');
@@ -14,6 +14,10 @@ test('totalForMonth only totals fuel checks in the requested month', () => {
     { month: '2026-07', amount: 99.99 }
   ];
   assert.equal(totalForMonth(checks, '2026-08'), 292.47);
+});
+
+test('reportFileName uses the report month in a stable PDF name', () => {
+  assert.equal(reportFileName('2026-08'), 'benzin95-ledger-2026-08.pdf');
 });
 
 test('buildSummary returns a zero-safe total and sorted monthly rollup', () => {

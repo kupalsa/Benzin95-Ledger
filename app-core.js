@@ -9,6 +9,10 @@ export function totalForMonth(checks, month) {
     .toFixed(2));
 }
 
+export function reportFileName(month) {
+  return `benzin95-ledger-${month}.pdf`;
+}
+
 export function buildSummary(checks) {
   const groups = new Map();
   for (const check of checks) {
