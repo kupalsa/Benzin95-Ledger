@@ -1,0 +1,6 @@
+# Local-only artifacts — never publish receipt photos or generated archives
+exports/
+*.zip
+*.csv
+.DS_Store
+node_modules/
