@@ -18,6 +18,7 @@ export function uploadCandidates(remoteChecks, localChecks) {
   const remoteById = new Map(remoteChecks.map((check) => [check.id, check]));
   return localChecks.filter((check) => {
     const remote = remoteById.get(check.id);
+    if (remote && (!check.image || !Number(check.image.size))) return false;
     return !remote || String(check.updatedAt || check.createdAt || '') >= String(remote.updatedAt || remote.createdAt || '');
   });
 }

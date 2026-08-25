@@ -20,6 +20,11 @@ test('uploadCandidates keeps the local Blob-bearing check for upload', () => {
   assert.equal(candidates[0].image, image);
 });
 
+test('uploadCandidates does not overwrite a remote image with a broken local blob', () => {
+  const candidates = uploadCandidates([{ id: 'abc', updatedAt: '2026-08-01T11:00:00Z' }], [{ id: 'abc', updatedAt: '2026-08-01T12:00:00Z', image: { size: 0 } }]);
+  assert.equal(candidates.length, 0);
+});
+
 test('needsRawDownload handles GitHub API files over one megabyte', () => {
   assert.equal(needsRawDownload({ encoding: 'none', content: '', size: 3002899 }), true);
   assert.equal(needsRawDownload({ encoding: 'base64', content: 'YWJj', size: 3 }), false);
