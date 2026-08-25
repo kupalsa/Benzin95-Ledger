@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { mergeChecks, remoteImagePath } from './cloud-core.js';
+import { mergeChecks, remoteImagePath, uploadCandidates } from './cloud-core.js';
 
 test('mergeChecks preserves checks from both devices and keeps the newest version', () => {
   const merged = mergeChecks(
@@ -12,4 +12,10 @@ test('mergeChecks preserves checks from both devices and keeps the newest versio
 
 test('remoteImagePath files an image under its purchase month', () => {
   assert.equal(remoteImagePath({ id: 'abc', month: '2026-08', imageType: 'image/jpeg' }), 'checks/2026-08/abc.jpg');
+});
+
+test('uploadCandidates keeps the local Blob-bearing check for upload', () => {
+  const image = { blob: true };
+  const candidates = uploadCandidates([], [{ id: 'abc', updatedAt: '2026-08-01T11:00:00Z', image }]);
+  assert.equal(candidates[0].image, image);
 });
