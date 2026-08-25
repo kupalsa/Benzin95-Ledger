@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { mergeChecks, remoteImagePath, uploadCandidates, needsRawDownload } from './cloud-core.js';
+import { mergeChecks, remoteImagePath, uploadCandidates, needsRawDownload, needsRemoteImage } from './cloud-core.js';
 
 test('mergeChecks preserves checks from both devices and keeps the newest version', () => {
   const merged = mergeChecks(
@@ -23,4 +23,10 @@ test('uploadCandidates keeps the local Blob-bearing check for upload', () => {
 test('needsRawDownload handles GitHub API files over one megabyte', () => {
   assert.equal(needsRawDownload({ encoding: 'none', content: '', size: 3002899 }), true);
   assert.equal(needsRawDownload({ encoding: 'base64', content: 'YWJj', size: 3 }), false);
+});
+
+test('needsRemoteImage replaces a broken zero-byte local image', () => {
+  assert.equal(needsRemoteImage({ image: { size: 0 } }), true);
+  assert.equal(needsRemoteImage({ image: { size: 12 } }), false);
+  assert.equal(needsRemoteImage(undefined), true);
 });

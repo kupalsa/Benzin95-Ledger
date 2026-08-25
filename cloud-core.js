@@ -6,6 +6,10 @@ export function remoteImagePath(check) {
   return `checks/${check.month}/${check.id}.${imageExtension(check.imageType)}`;
 }
 
+export function needsRemoteImage(check) {
+  return !check?.image || !Number(check.image.size);
+}
+
 export function needsRawDownload(file) {
   return file?.encoding !== 'base64' || !file?.content;
 }
