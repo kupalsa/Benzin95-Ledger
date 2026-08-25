@@ -6,6 +6,10 @@ export function remoteImagePath(check) {
   return `checks/${check.month}/${check.id}.${imageExtension(check.imageType)}`;
 }
 
+export function needsRawDownload(file) {
+  return file?.encoding !== 'base64' || !file?.content;
+}
+
 export function uploadCandidates(remoteChecks, localChecks) {
   const remoteById = new Map(remoteChecks.map((check) => [check.id, check]));
   return localChecks.filter((check) => {
