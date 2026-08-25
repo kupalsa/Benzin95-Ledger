@@ -1,31 +1,13 @@
 <!doctype html>
 <html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="theme-color" content="#17212b" />
-  <title>Benzin95 Ledger</title>
-  <link rel="stylesheet" href="styles.css" />
-</head>
+<head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" /><meta name="theme-color" content="#17212b" /><title>Benzin95 Ledger</title><link rel="stylesheet" href="styles.css" /></head>
 <body>
-  <header class="topbar">
-    <a class="brand" href="#capture" aria-label="Benzin95 Ledger home"><span>B95</span> Benzin95 Ledger</a>
-    <nav aria-label="Main navigation"><a href="#capture" data-route="capture">Add</a><a href="#records" data-route="records">Checks</a><a href="#calendar" data-route="calendar">Months</a></nav>
-    <button class="primary-button" id="exportButton" type="button">Export PDF</button>
-  </header>
-  <main>
-    <section id="capture" class="route" data-page="capture">
-      <div class="page-title"><div><h1>Add fuel check</h1><p>Photo, date, total.</p></div><div class="summary-inline"><b id="grandTotal">₪0.00</b><span><span id="checkCount">0</span> checks total</span></div></div>
-      <section class="panel upload-panel"><div class="source-row"><label class="primary-button"><input id="cameraInput" type="file" accept="image/*" capture="environment" />Camera</label><label class="secondary-button"><input id="galleryInput" type="file" accept="image/*" />Gallery</label></div>
-        <form id="checkForm" hidden><div class="image-preview-wrap"><img id="imagePreview" alt="Selected fuel check" /><button id="clearImage" type="button" aria-label="Remove selected image">×</button></div><div class="form-grid"><label>Date<input id="checkDate" type="date" required /></label><label>Total (₪)<input id="checkAmount" type="number" min="0" step="0.01" placeholder="0.00" required /></label><label class="note-field">Note <span>optional</span><input id="checkNote" type="text" maxlength="120" placeholder="Station" /></label></div><div class="form-footer"><small id="monthHint"></small><button class="primary-button" type="submit">Save check</button></div></form>
-        <p class="empty-hint" id="emptyCaptureHint">Choose camera or gallery to add a check.</p>
-      </section>
-    </section>
-    <section id="records" class="route" data-page="records" hidden><div class="page-title"><div><h1>Monthly checks</h1><p>Calculate a month when it is complete.</p></div><button class="primary-button" id="exportButtonSecondary" type="button">Export PDF</button></div><div id="monthList" class="month-list"></div></section>
-    <section id="calendar" class="route" data-page="calendar" hidden><div class="page-title"><div><h1>Monthly spending</h1><p>Calculated months only.</p></div></div><div class="panel calendar-panel"><div id="calendarGrid" class="calendar-grid"></div></div></section>
-  </main>
-  <div class="toast" id="toast" role="status" aria-live="polite"></div>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-  <script type="module" src="app.js"></script>
-</body>
-</html>
+<header class="topbar"><a class="brand" href="#capture" aria-label="Benzin95 Ledger home"><span>B95</span> Benzin95 Ledger</a><nav aria-label="Main navigation"><a href="#capture" data-route="capture">Add</a><a href="#records" data-route="records">Checks</a><a href="#calendar" data-route="calendar">Months</a></nav><button class="secondary-button" id="syncButton" type="button">Sync</button></header>
+<main>
+<section id="capture" class="route" data-page="capture"><div class="page-title"><div><h1>Add fuel check</h1><p>Photo, date, total.</p></div><div class="summary-inline"><b id="grandTotal">₪0.00</b><span><span id="checkCount">0</span> checks total</span></div></div><section class="panel upload-panel"><div class="source-row"><label class="primary-button"><input id="cameraInput" type="file" accept="image/*" capture="environment" />Camera</label><label class="secondary-button"><input id="galleryInput" type="file" accept="image/*" />Gallery</label></div><form id="checkForm" hidden><div class="image-preview-wrap"><img id="imagePreview" alt="Selected fuel check" /><button id="clearImage" type="button" aria-label="Remove selected image">×</button></div><div class="form-grid"><label>Date<input id="checkDate" type="date" required /></label><label>Total (₪)<input id="checkAmount" type="number" min="0" step="0.01" placeholder="0.00" required /></label><label class="note-field">Note <span>optional</span><input id="checkNote" type="text" maxlength="120" placeholder="Station" /></label></div><div class="form-footer"><small id="monthHint"></small><button class="primary-button" type="submit">Save check</button></div></form><p class="empty-hint" id="emptyCaptureHint">Choose camera or gallery to add a check.</p></section></section>
+<section id="records" class="route" data-page="records" hidden><div class="page-title"><div><h1>Monthly checks</h1><p>Totals update automatically.</p></div></div><div id="monthList" class="month-list"></div></section>
+<section id="calendar" class="route" data-page="calendar" hidden><div class="page-title"><div><h1>Monthly spending</h1></div></div><div class="panel calendar-panel"><div id="calendarGrid" class="calendar-grid"></div></div></section>
+</main>
+<dialog id="syncDialog"><form id="syncForm"><button class="dialog-close" type="button" id="closeSync" aria-label="Close">×</button><h2>Private data sync</h2><p class="muted">Benzin95-Ledger-Data</p><label>GitHub token<input id="githubToken" type="password" autocomplete="off" required /></label><label class="remember"><input id="rememberToken" type="checkbox" /> Keep on this device</label><button class="primary-button" type="submit">Connect & sync</button></form></dialog>
+<div class="toast" id="toast" role="status" aria-live="polite"></div><script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script><script type="module" src="app.js"></script>
+</body></html>

@@ -1,32 +1,24 @@
 # Benzin95 Ledger
 
-A minimal private web app for saving Benzin 95 fuel-check photos by purchase month, confirming monthly totals, exporting an archive, and reviewing confirmed spending in a calendar.
+Private fuel-check ledger with monthly totals, separate monthly PDF reports, and GitHub-backed device synchronization.
 
-## Visual direction
+## Repositories
 
-- **Background image concept:** a quiet overhead paper-and-concrete texture—referencing a fuel check on a forecourt, but never using a real check as wallpaper.
-- **Palette:** Deep Petrol `#193430`, Paper Cream `#F4F0E7`, Warm Clay `#C96E4B`, Moss `#759176`, Sand `#DED5C4`.
-- **Typography:** Fraunces for human, ledger-like figures; Manrope for operational UI; DM Mono for small archive labels.
+- Frontend: `kupalsa/Benzin95-Ledger`
+- Private data: `kupalsa/Benzin95-Ledger-Data`
 
-The current implementation renders the background as a subtle paper-grain texture so no personal receipt image is exposed in the UI.
+## Sync
 
-## Storage & privacy
+Checks are stored in the private data repository:
 
-Checks and original images are stored in **IndexedDB in the browser on this device**. Nothing is uploaded to a server. This is intentionally private but is **not synced** across browsers or devices. Use **Export archive** for a portable ZIP backup.
+- `data/ledger.json` holds the check index and metadata.
+- `checks/YYYY-MM/` holds original check images.
+- On a new device, select **Sync** and enter a fine-grained GitHub token that has **Contents: read and write** permission for `Benzin95-Ledger-Data` only.
+- The token is never committed or sent through chat. It stays in that browser session unless **Keep on this device** is selected.
 
-## Run locally
+## Use
 
-```bash
-python3 -m http.server 4173
-```
-
-Then open `http://localhost:4173`.
-
-## What it does
-
-- Camera or gallery image intake
-- Defaults the filing month from the confirmed purchase date; date can be changed before saving
-- Saves amount and optional station note alongside the original image
-- Monthly archive with current total and explicit **Calculate total** confirmation
-- ZIP export: checks only, or checks plus detailed/monthly CSV files
-- Calendar shows only month totals that were explicitly calculated
+1. Connect Sync before adding checks.
+2. Add a camera or gallery image, date, total, and optional note.
+3. The monthly total updates automatically.
+4. Use **Export PDF** next to a month to download one report: summary first page, then that month’s check images.
