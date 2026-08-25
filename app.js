@@ -1,5 +1,5 @@
-import { monthKeyFor, totalForMonth, buildSummary, reportFileName } from './app-core.js';
-import { mergeChecks, remoteImagePath, uploadCandidates, needsRawDownload, needsRemoteImage } from './cloud-core.js';
+import { monthKeyFor, totalForMonth, buildSummary, reportFileName } from './app-core.js?v=6';
+import { mergeChecks, remoteImagePath, uploadCandidates, needsRawDownload, needsRemoteImage } from './cloud-core.js?v=6';
 const $=s=>document.querySelector(s), DB='benzin95-ledger-db', OWNER='kupalsa', REPO='Benzin95-Ledger-Data', LEDGER='data/ledger.json'; let selectedFile,preview,timer,syncing=false;
 const money=v=>new Intl.NumberFormat('en-IL',{style:'currency',currency:'ILS'}).format(Number(v)||0), month=k=>new Intl.DateTimeFormat('en',{month:'long',year:'numeric'}).format(new Date(`${k}-01T12:00:00`)), date=d=>new Intl.DateTimeFormat('en',{day:'numeric',month:'short',year:'numeric'}).format(new Date(`${d}T12:00:00`)), esc=v=>String(v||'').replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#039;','"':'&quot;'}[c]));
 function toast(m){const e=$('#toast');e.textContent=m;e.classList.add('show');clearTimeout(timer);timer=setTimeout(()=>e.classList.remove('show'),2800)}
